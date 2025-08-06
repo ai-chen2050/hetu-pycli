@@ -188,6 +188,16 @@ def import_privkey(
         json.dump(keystore, f)
     print(f"[green]Imported address: {acct.address}\nKeystore: {keystore_path}\nName: {name}")
 
+@wallet_app.command(
+    name="addr",
+)
+def address_from_privkey(
+    ctx: typer.Context,
+    privkey: str = typer.Argument(..., help="Private key (hex)"),
+):
+    """Get eth address from private key (hex)"""
+    acct = Account.from_key(privkey)
+    print(f"[cyan]Address: {acct.address}")
 
 @wallet_app.command()
 def sign_tx(
